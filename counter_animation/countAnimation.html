@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Count Animation</title>
+</head>
+
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    body {
+        background-color: black;
+    }
+    div {
+        display: flex;
+        width: fit-content;
+        margin: 10rem auto;
+        padding: 2rem;
+        gap: 1rem;
+    }
+    ul {
+       display: flex;
+       flex-direction: column;
+       width: fit-content;
+       border: 2px solid rgb(56, 56, 56);
+       border-radius: 1rem;
+       padding: 2rem 2rem;
+       width: 8rem;
+    }
+    h2 {
+        text-align: center;
+        font-size: 4rem;
+        color: rgb(183, 183, 183);
+    }
+    p {
+        text-align: center;
+        font-size: 1.2rem;
+        color: rgb(99, 99, 99);
+    }
+</style>
+
+<body>
+<div>
+    <ul>
+        <h2 id="counter1" data-target="573">00</h2>
+        <p>Members</p>
+    </ul>
+    <ul>
+        <h2 id="counter2" data-target="323">00</h2>
+        <p>Division</p>
+    </ul>
+</div>
+
+    <script>
+        const counters =  [
+            {
+                counter: document.getElementById('counter1'),
+                target: document.getElementById('counter1').getAttribute('data-target')
+            },
+            {
+                counter: document.getElementById('counter2'),
+                target: document.getElementById('counter2').getAttribute('data-target')
+            }
+        ];
+        counters.forEach(({counter, target}) => {
+            if (target === 0) {
+                counter.innerText = '00';
+            }else {
+                let count = 0;
+                const duration = 2000;
+                const interval = Math.floor(duration/target)
+                const incrementCounter = () => {
+                    count++;
+                    counter.innerText = count < 10 ? `0${count}` : count;
+                    if (count < target) {
+                        setTimeout(incrementCounter, interval);
+                    }
+                }
+                incrementCounter();
+            }
+        })
+    </script>
+</body>
+</html>
